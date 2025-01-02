@@ -5,53 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vacation Planner</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* General styles for all elements */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Body background and layout */
         body {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100vh;
-            background: linear-gradient(to bottom, #ffffff, #000000);
-            color: #333;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/1600x900/?travel,destination');
+            background-size: cover;
+            color: #fff;
         }
 
-        /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
 
-        /* Logo image styling */
         header img {
-            width: 50px;
+            width: 60px;
         }
 
-        /* Navigation links */
         nav a {
             margin-left: 20px;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 5px;
+            color: #fff;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 25px;
             transition: background-color 0.3s ease;
+            font-size: 1.2rem;
         }
 
-        /* Colors for individual nav buttons */
         nav a:nth-child(1) {
             background-color: #ff6b6b;
             color: #fff;
@@ -67,116 +64,113 @@
             color: #fff;
         }
 
-        /* Hover effect for navigation links */
         nav a:hover {
             background-color: #333;
             color: #fff;
         }
 
-        /* Main content styling */
         .main {
             text-align: center;
             padding: 20px;
             flex-grow: 1;
         }
 
-        /* Main title styling */
         .main h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            color: #ffcc80;
         }
 
-        /* Subtitle styling */
         .main p {
             font-size: 1.5rem;
-            color: #777;
+            color: #ddd;
         }
 
-        /* Search container styling */
-        .search-container {
+        .form-container {
             margin: 30px auto;
-            width: 300px;
-            height: 300px;
-            border: 2px solid #ccc;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            position: relative;
-            padding: 20px;
-        }
-
-        /* Instructions text inside search container */
-        .search-container p {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        /* Search input styling */
-        .search-container input {
             width: 80%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            text-align: center;
-            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Clear button inside search container */
-        .search-container .clear-btn {
-            position: absolute;
-            right: 20%;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #777;
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
             font-size: 1.2rem;
-            transition: color 0.3s ease;
+            color: #ffcc80;
         }
 
-        /* Hover effect for clear button */
-        .search-container .clear-btn:hover {
-            color: #333;
+        .form-container input[type="text"],
+        .form-container select,
+        .form-container input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-align: center;
         }
 
-        /* Buttons inside the search container */
+        .form-container input[type="text"]:focus,
+        .form-container select:focus,
+        .form-container input[type="range"]:focus {
+            border-color: #54a0ff;
+            outline: none;
+        }
+
+        .form-container .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-container .slider-container input {
+            width: 70%;
+        }
+
+        .form-container .slider-value {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
         .buttons {
             display: flex;
             justify-content: space-between;
             width: 100%;
         }
 
-        /* General button styles */
         .buttons button {
             border: none;
             background-color: #6c63ff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Hover effect for buttons */
         .buttons button:hover {
             background-color: #5548c8;
             transform: scale(1.1);
         }
 
-        /* Footer styling */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
 
-        /* Tech stack icons and text */
         .tech-stack {
             display: flex;
             align-items: center;
@@ -185,9 +179,9 @@
         .tech-stack i {
             margin-right: 10px;
             font-size: 1.5rem;
+            color: #ffcc80;
         }
 
-        /* Social links in footer */
         .social-links {
             display: flex;
             align-items: center;
@@ -196,23 +190,46 @@
         .social-links a {
             margin-left: 20px;
             text-decoration: none;
-            color: #333;
+            color: #ffcc80;
             font-size: 1.5rem;
             transition: color 0.3s ease;
         }
 
-        /* Hover effect for social links */
         .social-links a:hover {
-            color: #6c63ff;
+            color: #fff;
+        }
+
+        .output-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #ffcc80, #ffa07a);
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: gradientMove 5s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .output-box pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
     <header>
-        <!-- Logo for branding -->
         <img src="logo.png" alt="Vacation Planner Logo">
-        
-        <!-- Navigation links -->
         <nav>
             <a href="#">Home</a>
             <a href="#">Sign In</a>
@@ -221,74 +238,31 @@
     </header>
 
     <main class="main">
-        <!-- Main title and tagline -->
         <h1>VACATION PLANNER</h1>
         <p>"Your Dream Trip, Perfectly Planned!"</p>
 
-        <!-- Search input section -->
-        <div class="search-container">
-            <p>Enter where you want to go!</p>
-            <input type="text" id="search-input" placeholder="Search...">
-            <i class="fas fa-times clear-btn" id="clear-btn" title="Clear"></i>
-            
-            <!-- Buttons for navigation and submission -->
+        <div class="form-container">
+            <label for="from-destination">Enter your starting location:</label>
+            <input type="text" id="from-destination" placeholder="Where are you starting from?">
+
+            <label for="date">Choose your travel date (MM/DD/YYYY - MM/DD/YYYY):</label>
+            <input type="text" id="date" placeholder="FROM - TO: MM/DD/YYYY - MM/DD/YYYY">
+
+            <label for="budget">Set your budget:</label>
+            <div class="slider-container">
+                <input type="range" id="budget" min="100" max="50000" step="100">
+                <span class="slider-value" id="budget-value">$100</span>
+            </div>
+
+            <label for="destination-preference">Destination Preference:</label>
+            <select id="destination-preference">
+                <option value="same-state">Same State</option>
+                <option value="same-country">Same Country</option>
+                <option value="world">All Over the World</option>
+            </select>
+
             <div class="buttons">
                 <button id="previous-btn">&larr; Previous</button>
                 <button id="submit-btn">Submit</button>
                 <button id="next-btn">Next &rarr;</button>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <!-- Technologies used in the project -->
-        <div class="tech-stack">
-            <i class="fab fa-github"></i>
-            <span>Technologies Used: Figma, Amadeus APIs, Python, HTML, CSS, JS, MySQL, React, GitHub</span>
-        </div>
-        
-        <!-- Social media links -->
-        <div class="social-links">
-            <a href="#"><i class="fab fa-linkedin"></i>@Vishal</a>
-            <a href="#"><i class="fab fa-linkedin"></i>@Shriman</a>
-            <a href="#"><i class="fab fa-linkedin"></i>@Aakkash</a>
-        </div>
-    </footer>
-
-    <script>
-        /**
-         * Clears the input field when the clear button is clicked.
-         */
-        const searchInput = document.getElementById('search-input');
-        const clearBtn = document.getElementById('clear-btn');
-
-        clearBtn.addEventListener('click', () => {
-            searchInput.value = '';
-        });
-
-        /**
-         * Displays an alert showing the search term when the submit button is clicked.
-         */
-        const submitBtn = document.getElementById('submit-btn');
-        submitBtn.addEventListener('click', () => {
-            alert(`Searching for: ${searchInput.value}`);
-        });
-
-        /**
-         * Adds hover animations to the navigation buttons.
-         */
-        const previousBtn = document.getElementById('previous-btn');
-        const nextBtn = document.getElementById('next-btn');
-
-        [previousBtn, submitBtn, nextBtn].forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                button.style.transform = 'scale(1.1)';
-            });
-
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = 'scale(1)';
-            });
-        });
-    </script>
-</body>
-</html>
+            </
