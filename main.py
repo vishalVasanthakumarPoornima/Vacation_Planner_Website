@@ -12,11 +12,35 @@ amadeus = Client(
     client_secret="d6awkC2fGUjd1Rmw"
 )
 
-def get_flight_offers(origin, budget, departure_date, return_date, adults, children, infants, seniors):
+def get_airport_code(city_name):
+    try:
+        print(f"Fetching airport code for {city_name}...")
+        response = amadeus.reference_data.locations.cities.get(keyword=city_name)
+        if response.data:
+            # Check if city code exists in the response data
+            city_info = response.data[0]
+            city_code = city_info.get('iataCode', None)  # Look for the airport code
+            if city_code:
+                return city_code
+            else:
+                print(f"No airport code found for {city_name}.")
+                return None
+        else:
+            print(f"No cities found for {city_name}.")
+            return None
+    except ResponseError as error:
+        print(f"Error fetching airport code: {error}")
+        return None
+
+def get_flight_offers(origin, budget, departure_date, return_date, adults, children, infants):
     try:
         print("Fetching flight offers...")
         # Use the correct airport code (e.g., JFK for New York)
-        origin_location_code = origin.upper()  # Ensure the city code is properly formatted
+        origin_location_code = get_airport_code(origin)  # Get the airport code based on city
+        
+        if not origin_location_code:
+            print("Invalid city name provided. Cannot fetch flight offers.")
+            return None
         
         # Ensure budget is a valid integer
         max_price = str(budget)  # Ensure the budget is just a number (no $ or commas)
@@ -35,6 +59,7 @@ def get_flight_offers(origin, budget, departure_date, return_date, adults, child
     except ResponseError as error:
         print(f"Error fetching flight offers: {error}")
         return None
+
 
 
 def get_hotel_offers(destination, check_in_date, check_out_date, total_people):
@@ -85,7 +110,7 @@ def suggest_random_destination(flight_offers):
 def main():
     # Gather user inputs
     print("Welcome to the Vacation Planner!")
-    starting_location = input("Enter your starting location (city code, e.g., NYC): ").strip()
+    starting_location = input("Enter your starting location (city name, e.g., New York): ").strip()
     destination_preference = input("Enter destination preference (same-state, same-country, world): ").strip()
     budget = int(input("Enter your budget (in USD): ").strip())
     from_date = input("Enter your departure date (YYYY-MM-DD): ").strip()
@@ -107,8 +132,7 @@ def main():
         return_date=to_date,
         adults=adults,
         children=children,
-        infants=infants,
-        seniors=seniors
+        infants=infants
     )
 
     if not flight_offers:

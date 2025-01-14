@@ -4,228 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vacation Planner</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100vh;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/1600x900/?travel,destination');
-            background-size: cover;
-            color: #fff;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-        }
-
-        header img {
-            width: 60px;
-        }
-
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-            font-size: 1.2rem;
-        }
-
-        nav a:nth-child(1) {
-            background-color: #ff6b6b;
-            color: #fff;
-        }
-
-        nav a:nth-child(2) {
-            background-color: #1dd1a1;
-            color: #fff;
-        }
-
-        nav a:nth-child(3) {
-            background-color: #54a0ff;
-            color: #fff;
-        }
-
-        nav a:hover {
-            background-color: #333;
-            color: #fff;
-        }
-
-        .main {
-            text-align: center;
-            padding: 20px;
-            flex-grow: 1;
-        }
-
-        .main h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-            color: #ffcc80;
-        }
-
-        .main p {
-            font-size: 1.5rem;
-            color: #ddd;
-        }
-
-        .form-container {
-            margin: 30px auto;
-            width: 80%;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-container label {
-            display: block;
-            margin: 10px 0 5px;
-            font-size: 1.2rem;
-            color: #ffcc80;
-        }
-
-        .form-container input[type="text"],
-        .form-container select,
-        .form-container input[type="range"] {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .form-container input[type="text"]:focus,
-        .form-container select:focus,
-        .form-container input[type="range"]:focus {
-            border-color: #54a0ff;
-            outline: none;
-        }
-
-        .form-container .slider-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .form-container .slider-container input {
-            width: 70%;
-        }
-
-        .form-container .slider-value {
-            font-size: 1.2rem;
-            color: #fff;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .buttons button {
-            border: none;
-            background-color: #6c63ff;
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .buttons button:hover {
-            background-color: #5548c8;
-            transform: scale(1.1);
-        }
-
-        footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-        }
-
-        .tech-stack {
-            display: flex;
-            align-items: center;
-        }
-
-        .tech-stack i {
-            margin-right: 10px;
-            font-size: 1.5rem;
-            color: #ffcc80;
-        }
-
-        .social-links {
-            display: flex;
-            align-items: center;
-        }
-
-        .social-links a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #ffcc80;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #fff;
-        }
-
-        .output-box {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 15px;
-            background: linear-gradient(45deg, #ffcc80, #ffa07a);
-            color: #333;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            animation: gradientMove 5s ease infinite;
-        }
-
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .output-box pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-    </style>
+    <script src="scripts.js"></script>
 </head>
 <body>
     <header>
@@ -240,7 +22,29 @@
     <main class="main">
         <h1>VACATION PLANNER</h1>
         <p>"Your Dream Trip, Perfectly Planned!"</p>
-
+        <div class="skill">
+          <div class="outer">
+            <div class="inner">
+              <div id="number">
+              </div>
+            </div>
+          </div>
+          
+          <svg xmlns="http://www.w3.org/2000/svg"
+          version="1.1" width="160px"
+          height="160px">
+            <defs>
+              <linearGradient id="GradientColor">
+                <stop offset="0%"
+                stop-color="#DA22FF" />
+                <stop offset="100%"
+                stop-color="#9733EE" />
+              </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="70"
+            stroke-linecap="round" />
+          </svg>
+        </div>
         <div class="form-container">
             <label for="from-destination">Enter your starting location:</label>
             <input type="text" id="from-destination" placeholder="Where are you starting from?">
