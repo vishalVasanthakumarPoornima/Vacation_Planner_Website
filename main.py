@@ -78,16 +78,18 @@ def format_hotel_data(hotel_data):
     """Formats and prints hotel data."""
     for i, hotel in enumerate(hotel_data, 1):
         print(f"Hotel {i}:")
-        print(f"  Name: {hotel['name']}")
-        print(f"  Address: {hotel['address']['lines'][0]}, {hotel['address']['cityName']}")
-        print(f"  Rating: {hotel['rating']}")
+        print(f"  Name: {hotel.get('name', 'N/A')}")
+        address_lines = hotel['address'].get('lines', ['N/A'])[0] if 'address' in hotel else 'N/A'
+        city_name = hotel['address'].get('cityName', 'N/A') if 'address' in hotel else 'N/A'
+        print(f"  Address: {address_lines}, {city_name}")
+        print(f"  Rating: {hotel.get('rating', 'N/A')}")
         print("-" * 50)
 
 def hotel_list_search(destination):
     """Fetches hotels and formats the output."""
     try:
         # API call
-        response = amadeus.reference_data.locations.hotels.by_city.get(cityCode=destination)
+        response = amadeus.reference_data.locations.hotels.by_city.get(cityCode=destination, radius=5, radiusUnit="KM", ratings="1, 2, 3, 4, 5")
         hotels = response.data
 
         if not hotels:
@@ -97,9 +99,9 @@ def hotel_list_search(destination):
         # Extract and format the relevant details
         formatted_data = [
             {
-                "name": hotel['name'],
-                "address": hotel['address'],
-                "rating": hotel.get('rating', "N/A")
+                "name": hotel.get('name', 'N/A'),
+                "address": hotel.get('address', {}),
+                "rating": hotel.get('rating', 'N/A')
             }
             for hotel in hotels
         ]
