@@ -1,0 +1,130 @@
+[
+    {
+        "type": "hotel-offers",
+        "hotel": {
+            "type": "hotel",
+            "hotelId": "DTNYC917",
+            "chainCode": "DT",
+            "dupeId": "700146224",
+            "name": "DOUBLETREE BY HILTON NYC FINANCIAL",
+            "cityCode": "NYC",
+            "latitude": 40.70405,
+            "longitude": -74.01259
+        },
+        "available": true,
+        "offers": [
+            {
+                "id": "UH2YW6B40X",
+                "checkInDate": "2025-04-06",
+                "checkOutDate": "2025-04-07",
+                "rateCode": "RAC",
+                "rateFamilyEstimated": {
+                    "code": "BAR",
+                    "type": "P"
+                },
+                "commission": {
+                    "percentage": "10"
+                },
+                "room": {
+                    "type": "A00",
+                    "typeEstimated": {
+                        "category": "STANDARD_ROOM",
+                        "beds": 1,
+                        "bedType": "KING"
+                    },
+                    "description": {
+                        "text": "FLEXIBLE RATE\n1 KING BED\nCOMPLIMENTARY WIFI/SWEET DREAMS BED\n42-INCH LCD TV AND WORK DESK",
+                        "lang": "EN"
+                    }
+                },
+                "guests": {
+                    "adults": 1
+                },
+                "price": {
+                    "currency": "USD",
+                    "base": "176.00",
+                    "total": "205.46",
+                    "taxes": [
+                        {
+                            "code": "TOTAL_TAX",
+                            "pricingFrequency": "PER_STAY",
+                            "pricingMode": "PER_PRODUCT",
+                            "amount": "29.46",
+                            "currency": "USD",
+                            "included": false
+                        }
+                    ],
+                    "variations": {
+                        "average": {
+                            "base": "176.00"
+                        },
+                        "changes": [
+                            {
+                                "startDate": "2025-04-06",
+                                "endDate": "2025-04-07",
+                                "base": "176.00"
+                            }
+                        ]
+                    }
+                },
+                "policies": {
+                    "cancellations": [
+                        {
+                            "deadline": "2025-04-05T23:59:00-04:00",
+                            "description": {
+                                "text": "Plus Taxes and fees where appropriate."
+                            },
+                            "amount": "176.00",
+                            "policyType": "CANCELLATION"
+                        }
+                    ],
+                    "guarantee": {
+                        "acceptedPayments": {
+                            "creditCards": [
+                                "VI",
+                                "CA",
+                                "AX",
+                                "DC",
+                                "DS",
+                                "JC",
+                                "CU"
+                            ],
+                            "methods": [
+                                "CREDIT_CARD"
+                            ],
+                            "creditCardPolicies": [
+                                {
+                                    "vendorCode": "VI"
+                                },
+                                {
+                                    "vendorCode": "CA"
+                                },
+                                {
+                                    "vendorCode": "AX"
+                                },
+                                {
+                                    "vendorCode": "DC"
+                                },
+                                {
+                                    "vendorCode": "DS"
+                                },
+                                {
+                                    "vendorCode": "JC"
+                                },
+                                {
+                                    "vendorCode": "CU"
+                                }
+                            ]
+                        }
+                    },
+                    "paymentType": "guarantee",
+                    "refundable": {
+                        "cancellationRefund": "REFUNDABLE_UP_TO_DEADLINE"
+                    }
+                },
+                "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers/UH2YW6B40X"
+            }
+        ],
+        "self": "https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=DTNYC917"
+    }
+]
