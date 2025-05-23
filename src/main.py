@@ -239,7 +239,7 @@ def find_and_print_middle_hotel(middle_hotel):
         for hotel in hotels:
             if hotel.get("name") == middle_hotel:
                 format_hotel_data_one(hotel)
-                return
+                return hotel
 
         print(f"Hotel '{middle_hotel}' not found in {file_path}")
 
@@ -249,16 +249,6 @@ def find_and_print_middle_hotel(middle_hotel):
         print(f"Error: Failed to parse JSON from {file_path}.")
     
 def read_from_file(word):
-    """
-    Reads a file line by line and returns the line that starts with the target word.
-
-    Args:
-        filepath (str): The path to the text file.
-        target_word (str): The first word to search for at the beginning of a line.
-
-    Returns:
-        str: The line that starts with the target word, or None if not found.
-    """
     try:
         with open("input.txt", 'r') as file:
             for line in file:
@@ -268,16 +258,52 @@ def read_from_file(word):
     except FileNotFoundError:
         return None # Handle the case where the file does not exist
 
-def activities_search(latitude, longitude, radius=1):
+def format_activities_data(activity_data):
+    """Formats and prints activity data."""
+    for i, activity in enumerate(activity_data, 1):
+        print(f"activity {i}:")
+        print(f"  Name: {activity.get('name', 'N/A')}")
+        print(f"  Description: {activity.get('description', 'N/A')}")
+        print(f"  Price: {activity.get('price', 'N/A')} {activity.get('currency', 'N/A')}")
+        print("-" * 50)
+
+def activities_search(latitude, longitude, radius=20):
     try:
         # Returns activities for a location in Barcelona based on geolocation coordinates
-        response = amadeus.shopping.activities.get(latitude, longitude, radius)
+        response = amadeus.shopping.activities.get(
+        latitude=latitude,
+        longitude=longitude,
+        radius=20
+    )
         activities = response.data
-        if not response:
-            print("No flights found.")
+        if not activities:
+            print("No activities found.")
             return
+        
+        formatted_data_activities = []
+        for activity in activities:
+            # Extracting name, address, rating, and price
+            name = activity.get('name', 'N/A')
+            description = activity.get('description', {})
+            price = activity["price"].get('amount', '0.00')
+            currency = activity["price"].get('currencyCode', 'N/A')
+            # Append to the formatted data
+            formatted_data_activities.append({
+                "name": name,
+                "description": description,
+                "price": price,
+                "currency": currency
+            })
+
+        # Print the formatted hotel data for all hotels
+        format_activities_data(formatted_data_activities)
+        
     except ResponseError as error:
         raise error
+    # Save response to a JSON file for debugging
+    file_path = "activities_search_response.json"
+    with open(file_path, "w") as json_file:
+        json.dump(activities, json_file, indent=4)
 
 def extract_budget(budget):
     budget_value = ""
@@ -318,7 +344,32 @@ def main():
     budget_value -= float(middle_flight['price']) + int(selected_price)
     print(f"Remaining budget after deducting flight and hotel costs: ${budget_value:.2f}")
     
+    hotel_data = find_and_print_middle_hotel(middle_hotel)
+    if hotel_data:
+        latitude = hotel_data.get('geoCode', {}).get('latitude', 0)
+        longitude = hotel_data.get('geoCode', {}).get('longitude', 0)
+        print("Fetching activities within a 20-mile radius to cover all options: ")
+    print("We are now fetching activities for you...")
+    print("Please let us know how many activities you want to do per day.")
+    activities_per_day = int(input("Enter the number of activities you want to do per day: "))
+    print(f"Activities per day: {activities_per_day}")
+    # Fetch activities based on the latitude and longitude of the hotel
+    if latitude and longitude:
+        activities_search(latitude, longitude, radius=20)
+        print("Please select the activities you want to do from the website.")
+        # select_activities()
+    else:
+        print("Error: Latitude and longitude not found for the selected hotel.")
+        return
+    print("Activities fetched successfully.")
+    print("Thank you for using the Vacation Planner!")
+    print("Have a great day!")
+    print("Program has quit.")
+    sys.exit()
+    # Save response to a JSON file for debugging    
     
+        
     
+
 if __name__ == "__main__":
     main()
